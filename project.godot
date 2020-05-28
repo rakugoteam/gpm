@@ -15,10 +15,16 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Godot Nightly"
+config/name="RPM - Rakugo Package Manager"
 run/main_scene="res://Main.tscn"
 boot_splash/image="res://splash.png"
 config/icon="res://icon.png"
+
+[debug]
+
+gdscript/warnings/unassigned_variable=false
+gdscript/warnings/unassigned_variable_op_assign=false
+gdscript/warnings/unused_variable=false
 
 [display]
 

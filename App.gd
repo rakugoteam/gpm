@@ -54,13 +54,14 @@ func update_download_link():
 		download_link = 'https://archive.hugo.pro/builds/godot/editor/godot-macos-nightly-x86_64.dmg'
 	else:
 		download_link = 'https://archive.hugo.pro/builds/godot/editor/godot-linux-nightly-x86_64.AppImage'
-	
+
 	print('[+] Updating download link: ', download_link)
 
 
 
 func _on_AboutButton_pressed():
 	$AboutDialog.popup()
+
 
 func _on_OSSelector_item_selected(ID):
 	match ID:
@@ -81,9 +82,11 @@ func _disable_arch(b):
 	$SystemSelector.disabled = b
 	$SystemSelector.select(0)
 
+
 func _on_SystemSelector_item_selected(_ID):
 	update_download_link()
 	up_to_date = false
+
 
 func _on_DownloadButton_pressed():
 	_update_file_name()
@@ -95,6 +98,7 @@ func _on_DownloadButton_pressed():
 		# but I've been having a lot of issues doing this so
 		# I think that opening the container dir is enough for now
 		OS.shell_open(OS.get_user_data_dir())
+		
 	else:
 		# No file found here so we can go ahead and download
 		# the latest version
@@ -125,6 +129,7 @@ func _on_HTTPRequest_request_completed(result, response_code, _headers, _body):
 	# When the zip is downloaded
 	print("[+] Download completed ", result, ", ", response_code)
 	var cwd = OS.get_user_data_dir()
+	
 	if current_os == "Windows":
 		# Unzip file
 		var _command = OS.execute("unzip.exe", [cwd + '/' + file_name, '-d', cwd], true)
@@ -132,31 +137,35 @@ func _on_HTTPRequest_request_completed(result, response_code, _headers, _body):
 		up_to_date = is_up_to_date()
 		# Open the dir
 		OS.shell_open(OS.get_user_data_dir())
+		
 	elif current_os == "X11":
 		OS.execute('/usr/bin/chmod', ['+x', cwd + '/' + file_name], false)
 		up_to_date = is_up_to_date()
 		OS.shell_open(OS.get_user_data_dir())
+	
 	else:
 		print('Todo on osx')
+
 
 func list_files_in_directory(path):
 	# By volzhs
 	# https://godotengine.org/qa/5175/how-to-get-all-the-files-inside-a-folder
-    var files = []
-    var dir = Directory.new()
-    dir.open(path)
-    dir.list_dir_begin()
+	var files = []
+	var dir = Directory.new()
+	dir.open(path)
+	dir.list_dir_begin()
 
-    while true:
-        var file = dir.get_next()
-        if file == "":
-            break
-        elif not file.begins_with("."):
-            files.append(file)
+	while true:
+		var file = dir.get_next()
+		if file == "":
+			break
+		elif not file.begins_with("."):
+			files.append(file)
 
-    dir.list_dir_end()
+	dir.list_dir_end()
 
-    return files
+	return files
+
 
 func _on_Label2_meta_clicked(meta):
 	OS.shell_open(meta)
@@ -164,6 +173,7 @@ func _on_Label2_meta_clicked(meta):
 
 func _on_Warning_meta_clicked(meta):
 	OS.shell_open(meta)
+	
 	
 func _update_file_name():
 	file_name = file_name_prefix + '-' + date + file_ext
