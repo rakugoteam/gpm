@@ -1,25 +1,25 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://Lato-Regular-Font.tres" type="DynamicFontData" id=1]
-[ext_resource path="res://theme.tres" type="Theme" id=2]
-[ext_resource path="res://icon.png" type="Texture" id=3]
-[ext_resource path="res://TitleBar.gd" type="Script" id=4]
-[ext_resource path="res://rpm.gd" type="Script" id=5]
+[ext_resource path="res://addons/gpm/Lato-Regular-Font.tres" type="DynamicFontData" id=1]
+[ext_resource path="res://addons/gpm/icon.png" type="Texture" id=2]
+[ext_resource path="res://addons/gpm/theme.tres" type="Theme" id=3]
+[ext_resource path="res://addons/gpm/gpm.gd" type="Script" id=4]
+[ext_resource path="res://addons/gpm/TitleBar.gd" type="Script" id=5]
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=1]
 size = 27
 use_mipmaps = true
 use_filter = true
 font_data = ExtResource( 1 )
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=2]
 font_data = ExtResource( 1 )
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-theme = ExtResource( 2 )
-script = ExtResource( 5 )
+theme = ExtResource( 3 )
+script = ExtResource( 4 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -53,9 +53,12 @@ margin_left = 88.0
 margin_top = 43.0
 margin_right = 380.0
 margin_bottom = 82.0
-custom_fonts/font = SubResource( 3 )
-text = "Rakugo Package Manger"
+custom_fonts/font = SubResource( 1 )
+text = "Godot Package Manger"
 align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="AboutButton" type="Button" parent="."]
 self_modulate = Color( 1, 1, 1, 0.415686 )
@@ -72,7 +75,7 @@ __meta__ = {
 [node name="Logo" type="Sprite" parent="."]
 position = Vector2( 54, 69 )
 scale = Vector2( 0.875, 0.875 )
-texture = ExtResource( 3 )
+texture = ExtResource( 2 )
 
 [node name="Version" type="Label" parent="."]
 margin_left = 106.0
@@ -90,7 +93,7 @@ margin_left = -175.0
 margin_top = -56.5
 margin_right = 175.0
 margin_bottom = 62.5
-theme = ExtResource( 2 )
+theme = ExtResource( 3 )
 window_title = "About RPM"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -101,12 +104,14 @@ margin_left = 8.0
 margin_top = 8.0
 margin_right = 342.0
 margin_bottom = 76.0
-custom_fonts/normal_font = SubResource( 5 )
+custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
 bbcode_text = "Coded by [url=https://www.patreon.com/coppolaemilio]Emilio Coppola[/url] and [url=https://github.com/coppolaemilio/godot-nightly/graphs/contributors]contributors[/url] 2019. Made with [url=https://godotengine.org]Godot Engine[/url] 3.1
 Visit the [url=https://github.com/coppolaemilio/godot-nightly]repository[/url] to file bug reports or contribute!
 Builds from [url=https://hugo.pro/projects/godot-builds/]Hugo Lucurcio[/url]'s Unofficial Godot Engine builds"
-text = "This app is Package Manger for Rakugo Framework Project. It allows for easy update Rakugo and to install addons for Rakugo. "
+text = "Coded by Emilio Coppola and contributors 2019. Made with Godot Engine 3.1
+Visit the repository to file bug reports or contribute!
+Builds from Hugo Lucurcio's Unofficial Godot Engine builds"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -116,7 +121,10 @@ __meta__ = {
 [node name="TitleBar" type="Control" parent="."]
 anchor_right = 1.0
 margin_bottom = 33.0
-script = ExtResource( 4 )
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="ColorRect" type="ColorRect" parent="TitleBar"]
 anchor_right = 1.0
