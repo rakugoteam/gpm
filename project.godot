@@ -20,6 +20,10 @@ run/main_scene="res://addons/gpm/Main.tscn"
 boot_splash/image="res://addons/gpm/splash.png"
 config/icon="res://addons/gpm/icon.png"
 
+[audio]
+
+default_bus_layout=""
+
 [debug]
 
 gdscript/warnings/unassigned_variable=false

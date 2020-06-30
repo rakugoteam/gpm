@@ -10,7 +10,7 @@ var paths := []
 var id := 0
 
 var test_url = "https://github.com/rakugoteam/Rakugo"
-
+var d := Directory.new()
 
 
 func get_github_request(url:String) -> String:
@@ -31,11 +31,12 @@ func _on_DownloadButton_pressed():
 	$HTTPRequest.request(request)
 
 
-func get_files_list(body):
+func get_files_list(body, paths):
 	var json := JSON.parse(body.get_string_from_utf8())
 
 	for f in json.result["tree"]:
-		files[f["path"]] = f["url"]
+		if is_path_in(f.path, paths):
+			files[f.path] = f.url
 
 
 func get_manifest_paths(path:String) -> Array:
@@ -51,6 +52,7 @@ func get_manifest_paths(path:String) -> Array:
 	for package_id in packages:
 		xpaths.append(packages[package_id].path)
 		prints("Found package:", package_id)
+		d.make_dir_recursive("res://" + path)
 
 	return xpaths
 
@@ -58,18 +60,16 @@ func get_manifest_paths(path:String) -> Array:
 func download_file(i : int, paths:Array):
 	var path = files.keys()[i]
 	var file_url = files.values()[i]
-
-	if is_path_in(path, paths):
-		$HTTPRequest.download_file = path
-		$HTTPRequest.request(file_url)
-		prints("download file:", path)
-
+	
+	$HTTPRequest.download_file = path
+	$HTTPRequest.request(file_url)
+	prints("download file:", path)
 
 func is_path_in(path:String, paths:Array) -> bool:
 	var result = false
 
 	for p in paths:
-		result = result or (path in p)
+		result = result or (p in path)
 
 	return result
 
@@ -79,15 +79,17 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 		download = true
 		files = {}
 		id = 0
-		get_files_list(body)
 		paths = get_manifest_paths(test_manifest)
+		get_files_list(body, paths)
+		print(files)
 
-	download_next_file(result, response_code, headers, body)
+	download_next_file()
 
-func download_next_file(result, response_code, headers, body):
-	for i in range(id, files.size()):
+func download_next_file():
+	
+	if id < files.size():
 		download_file(id, paths)
-		id = i
+		id += 1
 		return
 
 	print("finished")
