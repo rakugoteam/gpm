@@ -1,0 +1,39 @@
+{
+  "name": "Rakugo Framework",
+  "short_name": "Rakugo",
+  "author": "Rakugo Team",
+  "repo": "https://github.com/rakugoteam/Rakugo",
+  "website": "https://rakugoteam.github.io/",
+  "packages": {
+    "rakugo.core@2.1.05": {
+      "type":"dir",
+      "description":"Install all Rakugo core componets",
+      "path":"addons/Rakugo",
+    },
+    "rakugo.graphics@1.0": {
+      "type":"dir",
+      "description":"graphics used by Rakugo Framework Empty Template",
+      "path":"graphics"
+    },
+    "rakugo.gui.visual-novel@2.1.05": {
+      "type":"dir",
+      "description":"Visual Novel GUI for Rakugo",
+      "path":"gui"
+    },
+    "rakugo.themes@1.0": {
+      "type":"dir",
+      "description":"Collection of gui themes for Rakugo",
+      "path":"themes"
+    },
+    "rakugo.fonts@1.0": {
+      "type":"dir",
+      "description":"For now it is just Ubuntu Font for Rakugo",
+      "path":"ubuntu-font-family"
+    },
+    "rakugo.sound_bus@1.0": {
+      "type":"file",
+      "description":"Sound bus file for Rakugo",
+      "path":"default_bus_layout.tres"
+    }
+  }
+}
