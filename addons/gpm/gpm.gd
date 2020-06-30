@@ -10,7 +10,7 @@ var paths := []
 var id := 0
 
 var test_url = "https://github.com/rakugoteam/Rakugo"
-var d := Directory.new()
+var directory := Directory.new()
 
 
 func get_github_request(url:String) -> String:
@@ -33,7 +33,9 @@ func _on_DownloadButton_pressed():
 
 func get_files_list(body, paths):
 	var json := JSON.parse(body.get_string_from_utf8())
-
+	
+	print(json.result["message"])
+	
 	for f in json.result["tree"]:
 		if is_path_in(f.path, paths):
 			files[f.path] = f.url
@@ -52,14 +54,17 @@ func get_manifest_paths(path:String) -> Array:
 	for package_id in packages:
 		xpaths.append(packages[package_id].path)
 		prints("Found package:", package_id)
-		d.make_dir_recursive("res://" + path)
 
 	return xpaths
 
 
 func download_file(i : int, paths:Array):
-	var path = files.keys()[i]
+	var path = "res://" + files.keys()[i]
 	var file_url = files.values()[i]
+	
+	var dir = path.get_base_dir()
+	if not directory.dir_exists(dir):
+		directory.make_dir_recursive(dir)
 	
 	$HTTPRequest.download_file = path
 	$HTTPRequest.request(file_url)
